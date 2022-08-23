@@ -29,10 +29,10 @@ class Program(models.Model):
     description = models.TextField(max_length=1000)
     start_at = models.DateTimeField(null=True)
     end_at = models.DateTimeField(null=True)
-    streaming_url = models.DateTimeField(null=True)
+    streaming_url = models.URLField(null=True)
     category = models.ManyToManyField(Category)
     place = models.CharField(max_length=50)
-    thumbnail = models.ImageField(upload_to="image")
+    thumbnail = models.ImageField(upload_to="images")
 
 
 class Link(models.Model):
