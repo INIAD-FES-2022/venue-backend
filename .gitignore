@@ -1,5 +1,6 @@
 .env
 db.sqlite3
+api/migration
 api/migrations
 .DS_Store
 api/.models.py.swp
