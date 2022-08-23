@@ -25,12 +25,12 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
-    queryset = Group.objects.all()
+    queryset = Category.objects.all()
 
 class ImageViewSet(viewsets.ModelViewSet):
     serializer_class = ImageSerializer
-    queryset = Group.objects.all()
+    queryset = Image.objects.all()
 
 class LinkViewSet(viewsets.ModelViewSet):
     serializer_class = LinkSerializer
-    queryset = Group.objects.all()
+    queryset = Link.objects.all()
