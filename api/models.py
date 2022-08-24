@@ -15,7 +15,7 @@ class Category(models.Model):
     is_for_notice = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Notice(models.Model):
