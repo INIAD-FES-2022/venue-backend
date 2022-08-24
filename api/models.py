@@ -6,7 +6,7 @@ class Group(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=1000)
     homepage = models.URLField(blank=True)
-    logo = models.ImageField(upload_to="images")
+    logo = models.ImageField(upload_to="")
 
     def __str__(self):
         return self.name
@@ -42,7 +42,7 @@ class Program(models.Model):
     streaming_url = models.URLField(null=True)
     category = models.ManyToManyField(Category)
     place = models.CharField(max_length=50)
-    thumbnail = models.ImageField(upload_to="images")
+    thumbnail = models.ImageField(upload_to="")
 
     def __str__(self):
         return self.title
@@ -57,4 +57,4 @@ class Link(models.Model):
 
 class Image(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="images")
+    image = models.ImageField(upload_to="")
