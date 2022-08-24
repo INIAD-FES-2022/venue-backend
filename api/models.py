@@ -8,6 +8,9 @@ class Group(models.Model):
     homepage = models.URLField(blank=True)
     logo = models.ImageField(upload_to="images")
 
+    def __str__(self):
+        return self.name
+
 
 class Category(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -25,6 +28,10 @@ class Notice(models.Model):
     content = models.TextField(max_length = 1000)
     category = models.ManyToManyField(Category)
 
+    def __str__(self):
+        return self.name
+
+
 class Program(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
@@ -36,6 +43,9 @@ class Program(models.Model):
     category = models.ManyToManyField(Category)
     place = models.CharField(max_length=50)
     thumbnail = models.ImageField(upload_to="images")
+
+    def __str__(self):
+        return self.title
 
 
 class Link(models.Model):
