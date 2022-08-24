@@ -14,6 +14,9 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     is_for_notice = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Notice(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
