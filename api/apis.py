@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Program, Notice, Group, Category, Image, Link
 from rest_framework import viewsets, filters
-from .serializers import ProgramSerializer, NoticeSerializer, GroupSerializer, CategorySerializer, ImageSerializer, LinkSerializer
+from .serializers import ProgramSerializer, DetailProgramSerializer, NoticeSerializer, DetailNoticeSerializer, GroupSerializer, CategorySerializer, ImageSerializer, LinkSerializer
 
 class ProgramViewSet(viewsets.ModelViewSet):
     serializer_class = ProgramSerializer
@@ -10,6 +10,11 @@ class ProgramViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category', 'place', 'start_at', 'end_at', 'group']
     ordering_fields = ['start_at', 'end_at', 'title', 'group', 'category']
     ordering = ['title']
+    def get_serializer_class(self, *args, **kwargs):
+        if self.action!='list':
+            return DetailProgramSerializer
+        else:
+            return self.serializer_class
 
 class NoticeViewSet(viewsets.ModelViewSet):
     serializer_class = NoticeSerializer
@@ -18,6 +23,11 @@ class NoticeViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category']
     ordering_fields = ['title', 'category', 'date']
     ordering = ['date']
+    def get_serializer_class(self, *args, **kwargs):
+        if self.action!='list':
+            return DetailNoticeSerializer
+        else:
+            return self.serializer_class
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer

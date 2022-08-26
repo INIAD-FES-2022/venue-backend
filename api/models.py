@@ -29,7 +29,7 @@ class Notice(models.Model):
     category = models.ManyToManyField(Category)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Program(models.Model):
