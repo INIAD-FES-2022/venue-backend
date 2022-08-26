@@ -6,13 +6,19 @@ class Group(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=1000)
     homepage = models.URLField(blank=True)
-    logo = models.ImageField(upload_to="images")
+    logo = models.ImageField(upload_to="")
+
+    def __str__(self):
+        return self.name
 
 
 class Category(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
     is_for_notice = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Notice(models.Model):
@@ -21,6 +27,10 @@ class Notice(models.Model):
     date = models.DateField(null=True)
     content = models.TextField(max_length = 1000)
     category = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.name
+
 
 class Program(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -32,7 +42,10 @@ class Program(models.Model):
     streaming_url = models.URLField(null=True)
     category = models.ManyToManyField(Category)
     place = models.CharField(max_length=50)
-    thumbnail = models.ImageField(upload_to="images")
+    thumbnail = models.ImageField(upload_to="")
+
+    def __str__(self):
+        return self.title
 
 
 class Link(models.Model):
@@ -44,4 +57,4 @@ class Link(models.Model):
 
 class Image(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="images")
+    image = models.ImageField(upload_to="")
