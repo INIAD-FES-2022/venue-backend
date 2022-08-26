@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Program, Notice, Group, Category, Image, Link
+from .models import Program, Notice, Group, Image, Link
 
 class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,11 +14,6 @@ class NoticeSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = '__all__'
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
         fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):
