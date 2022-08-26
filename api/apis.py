@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Program, Notice, Group
 from rest_framework import viewsets, filters
-from .serializers import ProgramSerializer, DetailProgramSerializer, NoticeSerializer, DetailNoticeSerializer, GroupSerializer
+from .serializers import ProgramSerializer, DetailProgramSerializer, NoticeSerializer, DetailNoticeSerializer, GroupSerializer, DetailGroupSerializer
 
 class ProgramViewSet(viewsets.ModelViewSet):
     serializer_class = ProgramSerializer
@@ -35,3 +35,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     queryset = Group.objects.all()
     http_method_names = ["get"]
+    def get_serializer_class(self, *args, **kwargs):
+        if self.action!='list':
+            return DetailGroupSerializer
+        else:
+            return self.serializer_class

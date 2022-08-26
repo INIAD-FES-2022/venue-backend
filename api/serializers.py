@@ -1,20 +1,40 @@
 from rest_framework import serializers
-from .models import Program, Notice, Group, Image, Link
+from .models import Program, Notice, Group, Image, Category, Link
 
 class ProgramSerializer(serializers.ModelSerializer):
+    logo = serializers.SerializerMethodField()
+
     class Meta:
         model = Program
-        fields = '__all__'
+        fields = ["uuid", "title", "start_at", "end_at", "place", "logo", "thumbnail"]
+    
+    def get_logo(self, obj):
+        try:
+            img = Group.objects.get(uuid=obj.group.uuid)
+            serializer = GroupSerializer(img)
+            return self.context['request']._current_scheme_host + serializer.data["logo"]
+        except:
+            return ""
 
 class NoticeSerializer(serializers.ModelSerializer):
+    category = serializers.SerializerMethodField()
+
     class Meta:
         model = Notice
-        fields = '__all__'
+        fields = ["uuid", "title", "date", "category"]
+
+    def get_category(self, obj):
+        try:
+            cats = obj.category.all()
+            serializer = SimpleCategorySerializer(cats, many=True)
+            return serializer.data
+        except:
+            return ""
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = '__all__'
+        fields = ["uuid", "name", "logo"]
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,13 +46,26 @@ class LinkSerializer(serializers.ModelSerializer):
         model = Link
         fields = ['url']
 
+class SimpleGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ["name", "uuid"]
+
+class SimpleCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["name", "uuid"]
+
 class DetailProgramSerializer(serializers.ModelSerializer):
     relatedUrl = serializers.SerializerMethodField()
     images = serializers.SerializerMethodField()
+    group = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+    logo = serializers.SerializerMethodField()
 
     class Meta:
         model = Program
-        fields = '__all__'
+        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images"]
 
     def get_relatedUrl(self, obj):
         try:
@@ -58,12 +91,38 @@ class DetailProgramSerializer(serializers.ModelSerializer):
         except:
             return ""
 
+    def get_group(self, obj):
+        try:
+            group = Group.objects.get(uuid=obj.group.uuid)
+            serializer = SimpleGroupSerializer(group)
+            return serializer.data
+        except:
+            return ""
+            
+    def get_category(self, obj):
+        try:
+            cats = obj.category.all()
+            serializer = SimpleCategorySerializer(cats, many=True)
+            return serializer.data
+        except:
+            return ""
+
+    def get_logo(self, obj):
+        try:
+            img = Group.objects.get(uuid=obj.group.uuid)
+            serializer = GroupSerializer(img)
+            return self.context['request']._current_scheme_host + serializer.data["logo"]
+        except:
+            return ""
+
+
 class DetailNoticeSerializer(serializers.ModelSerializer):
     relatedUrl = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
     
     class Meta:
         model = Notice
-        fields = '__all__'
+        fields = ["uuid", "title", "date", "category", "content", "relatedUrl"]
 
     def get_relatedUrl(self, obj):
         try:
@@ -75,3 +134,16 @@ class DetailNoticeSerializer(serializers.ModelSerializer):
             return output
         except:
             return ""
+
+    def get_category(self, obj):
+        try:
+            cats = obj.category.all()
+            serializer = SimpleCategorySerializer(cats, many=True)
+            return serializer.data
+        except:
+            return ""
+
+class DetailGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ["name", "description", "homepage", "logo"]
