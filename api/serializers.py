@@ -1,20 +1,31 @@
+from unicodedata import category
 from rest_framework import serializers
 from .models import Program, Notice, Group, Image, Category, Link
 
 class ProgramSerializer(serializers.ModelSerializer):
-    logo = serializers.SerializerMethodField()
+    group = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
 
     class Meta:
         model = Program
-        fields = ["uuid", "title", "start_at", "end_at", "place", "logo", "thumbnail"]
+        fields = ["uuid", "title", "start_at", "end_at", "place", "group", "category", "thumbnail"]
     
-    def get_logo(self, obj):
+    def get_group(self, obj):
         try:
-            img = Group.objects.get(uuid=obj.group.uuid)
-            serializer = GroupSerializer(img)
-            return self.context['request']._current_scheme_host + serializer.data["logo"]
+            group = Group.objects.get(uuid=obj.group.uuid)
+            serializer = SimpleGroupSerializer(group)
+            return serializer.data
         except:
             return ""
+
+    def get_category(self, obj):
+        try:
+            cats = obj.category.all()
+            serializer = SimpleCategorySerializer(cats, many=True)
+            return serializer.data
+        except:
+            return ""
+    
 
 class NoticeSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
