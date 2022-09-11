@@ -1,4 +1,3 @@
-from unicodedata import category
 from rest_framework import serializers
 from .models import Program, Notice, Group, Image, Category, Link
 
