@@ -8,7 +8,6 @@ services:
         volumes:
             - .:/usr/src/app/
             - gunicorn:/var/run/gunicorn
-        env_file: docker.env
 volumes:
     gunicorn:
         driver: local
