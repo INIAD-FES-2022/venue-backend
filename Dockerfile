@@ -5,6 +5,12 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 
+// replace SECRET_KEY and ALLOWED_HOST as you need
+CMD ["touch", ".env"]
+CMD ["echo", "SECRET_KEY=''", ">>", ".env"]
+CMD ["echo", "DEBUG=False", ">>", ".env"]
+CMD ["echo", "ALLOWED_HOST=['127.0.0.1']", ">>", ".env"]
+
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
