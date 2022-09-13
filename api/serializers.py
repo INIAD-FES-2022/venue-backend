@@ -30,7 +30,8 @@ class NoticeSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
 
     class Meta:
-        model = Notice fields = ["uuid", "title", "date", "category"] 
+        model = Notice
+        fields = ["uuid", "title", "date", "category"] 
     def get_category(self, obj):
         try:
             cats = obj.category.all()
