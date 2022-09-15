@@ -1,6 +1,12 @@
 version: '3'
 
 services:
+    db:
+        image: postgres
+        environment:
+            - "POSTGRES_USER=postgres"
+            - "POSTGRES_PASSWORD=password"
+
     gunicorn:
         build: .
         restart: always
