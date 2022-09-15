@@ -6,3 +6,4 @@ api/migrations
 api/.models.py.swp
 config/.settings.py.swp
 images/
+static/
