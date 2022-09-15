@@ -3,9 +3,9 @@ FROM python:3.10.6-alpine
 WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+RUN mkdir /usr/src/app/static
+RUN mkdir /usr/src/app/images
 
-
-// replace SECRET_KEY and ALLOWED_HOST as you need
 CMD ["touch", ".env"]
 CMD ["echo", "SECRET_KEY=''", ">>", ".env"]
 CMD ["echo", "DEBUG=False", ">>", ".env"]
