@@ -12,9 +12,12 @@ services:
         restart: always
         image: gunicorn:20.1.0
         container_name: gunicorn
+        depends_on:
+            - db
         volumes:
             - .:/usr/src/app/
             - gunicorn:/var/run/gunicorn
+
     nginx:
         restart: always
         image: nginx:1.17.7
@@ -28,6 +31,7 @@ services:
             - gunicorn:/var/run/gunicorn
             - ./static:/usr/src/app/static
             - ./images:/usr/src/app/images
+
 volumes:
     gunicorn:
         driver: local
