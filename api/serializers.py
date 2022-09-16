@@ -74,7 +74,7 @@ class DetailProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images"]
+        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images", "thumbnail"]
 
     def get_relatedUrl(self, obj):
         try:
