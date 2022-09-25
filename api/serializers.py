@@ -30,7 +30,10 @@ class NoticeSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
 
     class Meta:
-        model = Notice fields = ["uuid", "title", "date", "category"] 
+        model = Notice
+
+        fields = ["uuid", "title", "date", "category"]
+ 
     def get_category(self, obj):
         try:
             cats = obj.category.all()
@@ -73,7 +76,7 @@ class DetailProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images"]
+        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images", "thumbnail"]
 
     def get_relatedUrl(self, obj):
         try:
