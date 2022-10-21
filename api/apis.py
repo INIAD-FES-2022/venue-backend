@@ -9,7 +9,7 @@ class ProgramViewSet(viewsets.ModelViewSet):
     queryset = Program.objects.all()
     http_method_names = ["get"]
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
-    filterset_fields = ['category', 'place', 'start_at', 'end_at', 'group']
+    filterset_fields = ['category', 'place', 'start_at', 'end_at', 'group', 'is_online', 'is_face2face']
     ordering_fields = ['start_at', 'end_at', 'title', 'group']
     def get_serializer_class(self, *args, **kwargs):
         if self.action!='list':

@@ -37,12 +37,14 @@ class Program(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=1000)
-    start_at = models.DateTimeField(null=True)
-    end_at = models.DateTimeField(null=True)
-    streaming_url = models.URLField(null=True)
-    category = models.ManyToManyField(Category)
-    place = models.CharField(max_length=50)
-    thumbnail = models.ImageField(upload_to="")
+    start_at = models.DateTimeField(null=True, blank=True)
+    end_at = models.DateTimeField(null=True, blank=True)
+    streaming_url = models.URLField(blank=True)
+    category = models.ManyToManyField(Category, blank=True, null=True)
+    place = models.CharField(max_length=50, blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="", null=True, blank=True)
+    is_online = models.BooleanField(default=True)
+    is_face2face = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

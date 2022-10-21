@@ -7,7 +7,7 @@ class ProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ["uuid", "title", "start_at", "end_at", "place", "group", "category", "thumbnail"]
+        fields = ["uuid", "title", "start_at", "end_at", "place", "group", "category", "thumbnail", "is_online", "is_face2face"]
     
     def get_group(self, obj):
         try:
@@ -76,7 +76,7 @@ class DetailProgramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Program
-        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images", "thumbnail"]
+        fields = ["group", "title", "description", "start_at", "end_at", "streaming_url", "relatedUrl", "logo", "category", "place", "images", "thumbnail", "is_online", "is_offline"]
 
     def get_relatedUrl(self, obj):
         try:

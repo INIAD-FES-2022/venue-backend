@@ -161,4 +161,6 @@ REST_FRAMEWORK = {
 }
 
 # django-cors-header
-CORS_ORIGIN_WHITELIST = env.list('ALLOWED_HOSTS')
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:8000",
+]
