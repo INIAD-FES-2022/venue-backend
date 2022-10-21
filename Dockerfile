@@ -12,4 +12,5 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 RUN mkdir -p /var/run/gunicorn
 
+CMD ["python", "manage.py", "migrate"]
 CMD ["gunicorn", "config.wsgi", "--bind=unix:/var/run/gunicorn/gunicorn.sock"]
